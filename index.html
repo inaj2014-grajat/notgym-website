@@ -294,11 +294,9 @@
   .wl-option.selected .wl-check::after { content: '✓'; color: white; font-size: 13px; font-weight: 700; }
   .wl-emoji { font-size: 22px; flex-shrink: 0; }
 
-  /* SELECT ALL */
   .wl-select-all {
-    font-size: 13px; color: var(--teal); cursor: pointer;
-    text-align: right; margin-bottom: 24px; margin-top: -16px;
-    text-decoration: underline; text-underline-offset: 3px;
+    font-size: 13px; color: var(--grey);
+    text-align: left; margin-bottom: 16px; margin-top: -8px;
   }
 
   /* PROGRESS */
@@ -534,7 +532,7 @@
   <!-- STEP 2A: Kid goals -->
   <div class="wl-step" id="step1-kid">
     <p class="wl-question">What's your goal for your <span>child?</span></p>
-    <div class="wl-select-all" onclick="selectAll('opts1k')">Select all that apply</div>
+    <div class="wl-select-all">Select all that apply</div>
     <div class="wl-options" id="opts1k">
       <div class="wl-option" data-value="screen-time" onclick="toggleOption(this,'opts1k')">
         <div class="wl-check"></div><span class="wl-emoji">📵</span>Too much screen time, not enough movement
@@ -550,6 +548,9 @@
       </div>
       <div class="wl-option" data-value="cost" onclick="toggleOption(this,'opts1k')">
         <div class="wl-check"></div><span class="wl-emoji">💸</span>Classes and sports programs are too expensive
+      </div>
+      <div class="wl-option" data-value="all-kid" onclick="selectAllInGroup('opts1k',this)">
+        <div class="wl-check"></div><span class="wl-emoji">✅</span>All of the above
       </div>
     </div>
     <div class="wl-nav">
@@ -570,7 +571,7 @@
       </div>
     </div>
     <div class="wl-nav">
-      <button class="wl-back" onclick="goBack('step1-adult','step0')">Back</button>
+      <button class="wl-back" id="back-adult" onclick="goBack('step1-adult','step0')">Back</button>
       <button class="wl-next" onclick="goNext('1a')">Next &rarr;</button>
     </div>
   </div>
@@ -578,7 +579,7 @@
   <!-- STEP 3A: New to fitness -->
   <div class="wl-step" id="step2-new">
     <p class="wl-question">What's holding you <span>back?</span></p>
-    <div class="wl-select-all" onclick="selectAll('opts2n')">Select all that apply</div>
+    <div class="wl-select-all">Select all that apply</div>
     <div class="wl-options" id="opts2n">
       <div class="wl-option" data-value="intimidating" onclick="toggleOption(this,'opts2n')">
         <div class="wl-check"></div><span class="wl-emoji">😰</span>Gym feels intimidating
@@ -595,6 +596,9 @@
       <div class="wl-option" data-value="wasted-membership" onclick="toggleOption(this,'opts2n')">
         <div class="wl-check"></div><span class="wl-emoji">💸</span>Don't want to invest in a gym again — past memberships went to waste
       </div>
+      <div class="wl-option" data-value="all-new" onclick="selectAllInGroup('opts2n',this)">
+        <div class="wl-check"></div><span class="wl-emoji">✅</span>All of the above
+      </div>
     </div>
     <div class="wl-nav">
       <button class="wl-back" onclick="goBack('step2-new','step1-adult')">Back</button>
@@ -605,7 +609,7 @@
   <!-- STEP 3B: Experienced -->
   <div class="wl-step" id="step2-exp">
     <p class="wl-question">What are you <span>looking for?</span></p>
-    <div class="wl-select-all" onclick="selectAll('opts2e')">Select all that apply</div>
+    <div class="wl-select-all">Select all that apply</div>
     <div class="wl-options" id="opts2e">
       <div class="wl-option" data-value="form" onclick="toggleOption(this,'opts2e')">
         <div class="wl-check"></div><span class="wl-emoji">🎯</span>Improve my form and posture
@@ -618,6 +622,9 @@
       </div>
       <div class="wl-option" data-value="home-alt" onclick="toggleOption(this,'opts2e')">
         <div class="wl-check"></div><span class="wl-emoji">🏠</span>A serious home workout alternative to the gym
+      </div>
+      <div class="wl-option" data-value="all-exp" onclick="selectAllInGroup('opts2e',this)">
+        <div class="wl-check"></div><span class="wl-emoji">✅</span>All of the above
       </div>
     </div>
     <div class="wl-nav">
@@ -659,8 +666,13 @@
   var formData = { who: [], goals: [], level: '', barriers: [] };
   var prevFinalStep = '';
 
+  // ── MULTI-STEP WAITLIST ──
+  var formData = { who: [], kidGoals: [], level: '', barriers: [] };
+  var prevFinalStep = '';
+  var isBoth = false;
+
   function toggleOption(el, groupId) {
-    // Step 1 (who) is single select only
+    // Single select groups
     if (groupId === 'opts0' || groupId === 'opts1a') {
       var all = document.getElementById(groupId).querySelectorAll('.wl-option');
       all.forEach(function(o) { o.classList.remove('selected'); });
@@ -668,17 +680,18 @@
     el.classList.toggle('selected');
   }
 
-  function selectAll(groupId) {
-    var all = document.getElementById(groupId).querySelectorAll('.wl-option');
-    var allSelected = Array.from(all).every(function(o) { return o.classList.contains('selected'); });
-    all.forEach(function(o) {
-      allSelected ? o.classList.remove('selected') : o.classList.add('selected');
-    });
+  function selectAllInGroup(groupId, allEl) {
+    var group = document.getElementById(groupId);
+    var others = Array.from(group.querySelectorAll('.wl-option')).slice(0, -1);
+    var isSelected = allEl.classList.contains('selected');
+    others.forEach(function(o) { isSelected ? o.classList.remove('selected') : o.classList.add('selected'); });
+    allEl.classList.toggle('selected');
   }
 
   function getSelected(groupId) {
     return Array.from(document.getElementById(groupId).querySelectorAll('.wl-option.selected'))
-      .map(function(o) { return o.dataset.value; });
+      .map(function(o) { return o.dataset.value; })
+      .filter(function(v) { return v.indexOf('all-') === -1; });
   }
 
   function showStep(id) {
@@ -700,21 +713,26 @@
       var who = getSelected('opts0');
       if (!who.length) { alert('Please make a selection.'); return; }
       formData.who = who;
-      var val = who[0];
-      if (val === 'kid') { showStep('step1-kid'); updateDots(1); }
+      isBoth = who[0] === 'both';
+      if (who[0] === 'kid' || who[0] === 'both') { showStep('step1-kid'); updateDots(1); }
       else { showStep('step1-adult'); updateDots(1); }
     } else if (step === '1k') {
       var goals = getSelected('opts1k');
       if (!goals.length) { alert('Please select at least one.'); return; }
-      formData.goals = goals;
-      prevFinalStep = 'step1-kid';
-      showStep('step-final'); updateDots(3);
+      formData.kidGoals = goals;
+      if (isBoth) {
+        document.getElementById('back-adult').onclick = function() { goBack('step1-adult','step1-kid'); };
+        showStep('step1-adult'); updateDots(2);
+      } else {
+        prevFinalStep = 'step1-kid';
+        showStep('step-final'); updateDots(3);
+      }
     } else if (step === '1a') {
       var level = getSelected('opts1a');
       if (!level.length) { alert('Please make a selection.'); return; }
       formData.level = level[0];
-      if (level[0] === 'new') { showStep('step2-new'); updateDots(2); }
-      else { showStep('step2-exp'); updateDots(2); }
+      if (level[0] === 'new') { showStep('step2-new'); updateDots(isBoth ? 3 : 2); }
+      else { showStep('step2-exp'); updateDots(isBoth ? 3 : 2); }
     } else if (step === '2n') {
       var barriers = getSelected('opts2n');
       if (!barriers.length) { alert('Please select at least one.'); return; }
@@ -739,7 +757,8 @@
 
   function goBackFinal() {
     showStep(prevFinalStep);
-    updateDots(prevFinalStep === 'step1-kid' ? 1 : 2);
+    if (prevFinalStep === 'step1-kid') updateDots(1);
+    else updateDots(isBoth ? 2 : 2);
   }
 
   function submitWaitlist() {
@@ -759,8 +778,9 @@
     payload.append('name', name);
     payload.append('email', email);
     payload.append('who', formData.who.join(', '));
-    payload.append('goals_or_barriers', formData.goals.concat(formData.barriers).join(', '));
+    if (formData.kidGoals && formData.kidGoals.length) payload.append('child_goals', formData.kidGoals.join(', '));
     if (formData.level) payload.append('fitness_level', formData.level);
+    if (formData.barriers && formData.barriers.length) payload.append('goals_or_barriers', formData.barriers.join(', '));
 
     fetch('https://formspree.io/f/mpqkapvw', {
       method: 'POST',

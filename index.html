@@ -372,6 +372,75 @@
     .waitlist { padding: 80px 24px; }
     footer { flex-direction: column; gap: 16px; text-align: center; padding: 28px 24px; }
   }
+
+/* ===== DOWNLOAD ===== */
+.download {
+  background: #0d0d0d;
+  padding: 100px 24px;
+  text-align: center;
+}
+.download .section-label {
+  color: #00c2b8;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.download h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+}
+.download .sub {
+  font-size: 1.1rem;
+  color: #aaa;
+  max-width: 540px;
+  margin: 0 auto 48px;
+}
+.download-meta {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+.download-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.steps-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+.steps-row .step {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 24px 20px;
+  width: 180px;
+  text-align: left;
+}
+.steps-row .step .step-num {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #00c2b8;
+  margin-bottom: 8px;
+}
+.steps-row .step p {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin: 0;
+}
 </style>
 </head>
 <body>
@@ -384,6 +453,8 @@
     <li><a href="#how">How It Works</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#exercises">Exercises</a></li>
+  
+    <li><a href="#download">Download</a></li>
   </ul>
   <button class="nav-cta" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
 </nav>
@@ -495,6 +566,26 @@
     <div class="ex-card reveal"><span class="ex-emoji">🧗</span><div class="ex-name">Mountain Climber</div><div class="ex-type">Dual-Leg Reps</div></div>
     <div class="ex-card reveal"><span class="ex-emoji">⭐</span><div class="ex-name">Jumping Jack</div><div class="ex-type">Phase Detection</div></div>
   </div>
+</section>
+
+
+<section class="download" id="download">
+  <div class="section-label">Free Download</div>
+  <h2>Start Training Smarter</h2>
+  <p class="sub">Download NotGym for Windows — no subscription, no gym membership required.</p>
+  <div class="download-meta">
+    <span>🖥️ Windows 10 / 11</span>
+    <span>📦 ~[SIZE] MB</span>
+    <span>🏷️ Version [X.X]</span>
+    <span>📅 [DATE]</span>
+  </div>
+  <div class="steps-row">
+    <div class="step"><div class="step-num">01</div><p>Download the ZIP and extract it anywhere.</p></div>
+    <div class="step"><div class="step-num">02</div><p>Run <strong>INSTALL.bat</strong> to set up dependencies.</p></div>
+    <div class="step"><div class="step-num">03</div><p>Launch <strong>NotGym.bat</strong> to start the app.</p></div>
+    <div class="step"><div class="step-num">04</div><p>Allow webcam access when prompted.</p></div>
+  </div>
+  <a class="btn-primary" href="https://github.com/inaj2014-grajat/not-gym-app/releases/latest" target="_blank" rel="noopener">Download for Windows</a>
 </section>
 
 <section class="waitlist" id="waitlist">

@@ -485,6 +485,12 @@
     .ex-card .ex-type{font-size:0.7rem;color:var(--teal);text-transform:uppercase;letter-spacing:1px;}
       .ex-reps{font-size:0.65rem;color:rgba(255,255,255,0.7);margin-top:5px;letter-spacing:0.5px;}
     .ex-form{font-size:0.62rem;color:rgba(0,194,184,0.85);margin-top:3px;line-height:1.3;}
+  
+    /* ===== EXERCISE CARD HOVER ===== */
+    .ex-card{transition:transform 0.3s ease,box-shadow 0.3s ease;}
+    .ex-card:hover{transform:scale(1.08);z-index:10;box-shadow:0 24px 60px rgba(0,194,184,0.25);}
+    /* give the scroll row vertical padding so the scaled card is not clipped */
+    .ex-grid{padding-top:20px;padding-bottom:40px;}
   </style>
 </head>
 <body>

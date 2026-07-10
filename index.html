@@ -474,7 +474,16 @@
 }
 
 
-</style>
+
+    /* ===== EXERCISE VIDEO CARDS ===== */
+    .ex-grid{display:flex;gap:16px;overflow-x:auto;padding:0 8px 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;justify-content:center;}
+    .ex-card{position:relative;flex:0 0 200px;border-radius:16px;overflow:hidden;background:#111;border:1px solid #1a2825;aspect-ratio:9/16;scroll-snap-align:start;}
+    .ex-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+    .ex-overlay{position:absolute;bottom:0;left:0;right:0;padding:14px;background:linear-gradient(transparent,rgba(0,0,0,0.88));z-index:3;}
+    .ex-card .ex-emoji{font-size:1.2rem;display:block;margin-bottom:3px;}
+    .ex-card .ex-name{font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:2px;}
+    .ex-card .ex-type{font-size:0.7rem;color:var(--teal);text-transform:uppercase;letter-spacing:1px;}
+  </style>
 </head>
 <body>
 
@@ -594,21 +603,33 @@
 </section>
 
 <section class="exercises" id="exercises">
-  <p class="section-label reveal">✅ All Included in Your Free Download — Right Now</p>
-  <h2 class="ex-title reveal">5 exercises.<br><span class="grad">All in v1.0.</span></h2>
-  <p class="ex-sub reveal" style="color:var(--grey);font-size:16px;margin-bottom:32px;">These 5 exercises are <strong style="color:var(--white);">ready the moment you open the app</strong>. No setup wizard, no account, no internet required. Click download and you're coached in under a minute.</p>
-  <div class="ex-grid">
-    <div class="ex-card reveal"><span class="ex-emoji">🧘</span><div class="ex-name">Plank</div><div class="ex-type">Hold Timer</div></div>
-    <div class="ex-card reveal"><span class="ex-emoji">🏋️</span><div class="ex-name">Squat</div><div class="ex-type">Rep Counter</div></div>
-    <div class="ex-card reveal"><span class="ex-emoji">💪</span><div class="ex-name">Push-Up</div><div class="ex-type">Rep + Form</div></div>
-    <div class="ex-card reveal"><span class="ex-emoji">🧗</span><div class="ex-name">Mountain Climber</div><div class="ex-type">Dual-Leg Reps</div></div>
-    <div class="ex-card reveal"><span class="ex-emoji">⭐</span><div class="ex-name">Jumping Jack</div><div class="ex-type">Phase Detection</div></div>
-  </div>
-  <div style="text-align:center;margin-top:48px;">
-    <a href="https://github.com/inaj2014-grajat/not-gym-app/releases/latest" class="btn-primary" target="_blank" style="font-size:18px;padding:18px 48px;">⬇ Download Free Trial for Windows</a>
-    <p style="color:var(--grey);font-size:13px;margin-top:14px;">~180 MB · Windows 10/11 · Fully Offline · No Account Needed</p>
-  </div>
-</section>
+      <p class="section-label reveal">✅ All Included in Your Free Download — Right Now</p>
+      <h2 class="ex-title reveal">5 exercises.<br><span class="grad">All in v1.0.</span></h2>
+      <p class="ex-sub reveal" style="color:var(--grey); max-width:600px; margin:0 auto 48px;">These 5 exercises are ready the moment you open the app. No setup wizard, no account, no internet required. Click download and you’re coached in under a minute.</p>
+      <div class="ex-grid">
+        <div class="ex-card reveal">
+          <video autoplay loop muted playsinline><source src="videos/squat.mp4" type="video/mp4"></video>
+          <div class="ex-overlay"><span class="ex-emoji">🏋️</span><div class="ex-name">Squat</div><div class="ex-type">Rep Counter</div></div>
+        </div>
+        <div class="ex-card reveal">
+          <video autoplay loop muted playsinline><source src="videos/pushup.mp4" type="video/mp4"></video>
+          <div class="ex-overlay"><span class="ex-emoji">💪</span><div class="ex-name">Push-Up</div><div class="ex-type">Rep + Form</div></div>
+        </div>
+        <div class="ex-card reveal">
+          <video autoplay loop muted playsinline><source src="videos/plank.mp4" type="video/mp4"></video>
+          <div class="ex-overlay"><span class="ex-emoji">🧘</span><div class="ex-name">Plank</div><div class="ex-type">Hold Timer</div></div>
+        </div>
+        <div class="ex-card reveal">
+          <video autoplay loop muted playsinline><source src="videos/mountain-climber.mp4" type="video/mp4"></video>
+          <div class="ex-overlay"><span class="ex-emoji">🧗</span><div class="ex-name">Mountain Climber</div><div class="ex-type">Dual-Leg Reps</div></div>
+        </div>
+        <div class="ex-card reveal">
+          <video autoplay loop muted playsinline><source src="videos/jumping-jacks.mp4" type="video/mp4"></video>
+          <div class="ex-overlay"><span class="ex-emoji">⭐</span><div class="ex-name">Jumping Jack</div><div class="ex-type">Phase Detection</div></div>
+        </div>
+      </div>
+      <a href="#download" class="btn-primary">⬇ Download &amp; Try Now — 5 Free Exercises</a>
+    </section>
 
 <section class="download-cta" id="download">
   <div class="dl-card">
